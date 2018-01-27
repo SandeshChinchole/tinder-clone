@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: acrophobia73-hasura
+  data: null
+  kubeContext: acrophobia73
+  name: acrophobia73
