@@ -24,7 +24,7 @@ The app builds on top the following Hasura APIs:
 
 You will see the Login/Signup page. Enter your the Username and Password for creating a new account or logging in.
 
-![Login/Signup page](https://drive.google.com/file/d/1HTkE47tApCKxW3BTimlyWfZMc-bDm7BK/view?usp=sharing)
+![Login/Signup page](https://github.com/sundeysh/tinder-clone/blob/master/readme-assets/login.png)
 
 2. Create Account Page
 
