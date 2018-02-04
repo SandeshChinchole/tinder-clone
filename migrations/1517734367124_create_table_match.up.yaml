@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "match"("hasura_id" integer NOT NULL, "like_user_id" integer
+      NOT NULL, PRIMARY KEY ("hasura_id","like_user_id") )
+  type: run_sql
+- args:
+    name: match
+  type: add_existing_table_or_view

@@ -10,9 +10,9 @@ RUN npm -g install serve
 
 #Add all source code
 ADD app /app/
-RUN cd /app && npm run build
+RUN cd /app
 
 WORKDIR /app
 
 #Default command
-CMD ["serve", "-s", "build", "-p", "8080"]
+CMD ["serve", "-s", "public", "-p", "8080"]

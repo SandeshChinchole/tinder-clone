@@ -1,25 +1,30 @@
 {
-  "name": "blog",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "dns": "^0.2.2",
-    "fetch": "^1.1.0",
-    "material-ui": "^0.19.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
-    "react-split-pane": "^0.1.68",
-    "uuid": "^3.1.0"
-  },
+  "name": "tinder",
+  "version": "1.0.0",
+  "description": "Hpdf task: tinder clone app",
+  "main": "webpack.config.js",
   "scripts": {
-    "start": "cross-env acrophobia73=aviator63 react-scripts start",
-    "build": "cross-env acrophobia73=aviator63 react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "start": "cross-env REACT_APP_CLUSTER_NAME=embroidery86 webpack-dev-server ",
+     "build": "webpack"
   },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "cross-env": "^5.1.3"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "fetch": "^1.1.0",
+    "file-loader": "^1.1.6",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.0.2"
   }
 }
