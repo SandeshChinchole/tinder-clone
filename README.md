@@ -1,105 +1,73 @@
-[**React**](https://reactjs.org) is a JavaScript library to create interactive user interfaces. The core library is focussed on the view layer. It is declarative and component based. This quickstart uses [**create-react-app**](https://github.com/facebook/create-react-app) to scaffold a react app with no build configuration.
+# Tinder clone app
 
-## What does this come with?
+This is a simple clone of Tinder’s mobile application. It allows users to like and dislike other users and see their list of matches.
 
-* React.js Hello World Project
-  * Automatic reloading and bundling
-  * All *create-react-app* feature
-  * react-scripts with inbuilt webpack bundling
-* Deployed with the [**serve**](https://www.npmjs.com/package/serve) package
-* **Dockerfile** (automatically used by Hasura for deployment)
+### Features:
 
-```
-FROM node:8
+1. Users will be able to create an account and login with their credentials.
+2. A list of other users will available for each user to like or dislike.
+3. Users will be able to see a list of their matches.
+4. The app also allows users to update their profile information.
 
-RUN apt-get update && apt-get install -y build-essential python
+This app was built using ReactJS for the front-end side and Python Flask for the backend side.
 
-#Install deps
-RUN mkdir /app
-COPY app/package.json /app/package.json
-RUN cd /app && npm install
-RUN npm -g install serve
+The app builds on top the following Hasura APIs:
+* Hasura Data API
+* Hasura Auth
+* Hasura File APIs
+* Postgres instance in the cluster
 
-#Add all source code
-ADD app /app/
-RUN cd /app && npm run build
+ 
+## Instructions on using the app
+1. Go to this URL:
+[Tinder App](https://ui.acrophobia73.hasura-app.io/)
 
-WORKDIR /app
+You will see the Login/Signup page. Enter your the Username and Password for creating a new account or logging in.
 
-#Default command
-CMD ["serve", "-s", "build", "-p", "8080"]
-```
+![Login/Signup page](https://drive.google.com/file/d/1HTkE47tApCKxW3BTimlyWfZMc-bDm7BK/view?usp=sharing)
 
-## Deployment instructions
+2. Create Account Page
 
-### Basic deployment:
+This page will appear if you are creating a new account for the app. Users already having their accounts for the app will not see this page. On this page, users need to enter data in the corresponding field and upload their profile picture.
 
-* Press the **Clone & Deploy** button and follow the instructions.
-* The `hasura quickstart` command clones the project repository to your local computer, and also creates a **free Hasura cluster**, where the project will be hosted for free.
-* A git remote (called hasura) is created and initialized with your project directory.
-* Now get your cluster name using `hasura cluster status` and modify the package.json file inside `microservices/ui/app/package.json`. Assign your cluster name to `REACT_APP_CLUSTER_NAME` environment variable.
-* Run `git add .`, `git commit`, and `git push hasura master`.
-* Run the below command to open your shiny new deployed react app.
-``` shell
-$ hasura microservice open ui
-```
+![create account](https://drive.google.com/file/d/1TcBpkibLf8NQRxuMulhYP0KBorQLxZ98/view?usp=sharing)
 
-### Making changes and deploying
+3. Suggestions Page
 
-* To make changes to the project, browse to `/microservices/ui/app/src` and edit the `HasuraExampleApp.js` file in `hasuraExamples` folder according to your app.
-* Commit the changes, and perform `git push hasura master` to deploy the changes.
+After logging in, the users will be taken to Suggestions page. On this page, users will see other users they can like or dislike based on their preference. There are two buttons at the bottom of the page and two button at the top. Clicking on the bottom right button indicated a “like” whereas clicking on the bottom left indicates a “dislike”. Clicking on the top right button, takes the user to his/her Matches page. Clicking on the top left, takes the user to his/her Profile page.
 
-## Local development
+![suggestions page](https://drive.google.com/file/d/1Hws-gm2X7LR5jIKfCDOb_vwi8ZcYRbVR/view?usp=sharing)
 
-To test and make changes to this app locally, follow the below instructions.
-* Open Terminal and `cd` into the project folder
-* Run `npm install` to install all the project dependencies
-* Run `npm start` and `npm build` in the terminal to build and run it.
-* Make changes to the app, and see the changes in the browser
+4. Matches Page
 
-## View server logs
+When a user clicks on the top right button, he/she is taken to his/her Matches page. This page shows a list of users with whom he/she matched and liked. After viewing the users list, the user can navigate back to the Suggestions page by clicking on the back button on the top left side of app.
 
-You can view the logs emitted by the ‘serve’ package by running the below command:
+![matches page](https://drive.google.com/file/d/1k6JJByXEXoqj-RBMConta8OPxk7tKGNH/view?usp=sharing)
 
-``` shell
-$ hasura microservice logs ui
-```
-You can see the logs in your terminal, press `CTRL + C` to stop logging.
+5. Profile Page
 
-## Managing app dependencies
+The users can go to their profile page by clicking on the top left button on the Suggestions page.
 
-* System dependencies, like changing the web-server can be made in the Dockerfile
-* npm/yarn deps can be managed by editing **package.json**.
+![profile page](https://drive.google.com/file/d/1mhI05v1uhkLl0-1LLYxmYdfTDRJ-1HNP/view?usp=sharing)
 
-If changes have been done to the dependencies, `git commit`, and perform `git push hasura master` to deploy the changes.
 
-## Migrating your existing React.js app
+On this page, users can see their profile picture, name and age. Clicking on the settings button, takes the users to their Settings page. Settings page allows the users to update the information for the city field and enter the gender of the other users they are looking for. After updating the information for these two fields, users can click on done button to go back to the Profile page. Users can also logout of the app and delete their app account as well.
 
-* If you have an existing react app which you would like to deploy, replace the code inside `/microservices/ui/src/` according to your app.
-* You may need to modify the Dockerfile if your `package.json` or the build directory location has changed, but in most cases, it won't be required.
-* Commit, and run `git push hasura master` to deploy your app.
+![settings page](https://drive.google.com/file/d/1TYcfcwB1RA4n5G3L5jyc3JS8RAbHDYMa/view?usp=sharing)
 
-## Adding backend features
+Back on the Profile page, users can click on the Edit Info button and go to their Account page to update their profile information. After updating their profile information, the users can click on the Update or Cancel button to navigate back to the Profile page.
 
-Hasura comes with BaaS APIs to make it easy to add backend features to your apps.
+![profile page](https://drive.google.com/file/d/1mhI05v1uhkLl0-1LLYxmYdfTDRJ-1HNP/view?usp=sharing)
 
-### Add instant authentication via Hasura’s web UI kit
+If the users are done using the Profile page, they can navigate to the Suggestions page by clicking on the top right button.
 
-Every project comes with an Authentication kit, you can restrict the access to your app to specific user roles.
-It comes with a UI for Signup and Login pages out of the box, which takes care of user registration and signing in.
 
-![Auth UI](https://docs.hasura.io/0.15/_images/uikit-dark.png)
+## Prerequisites
+* We will use Node.js along with the express framework to build our server. Ensure that you have Node installed on your computer, do this by running `node-v` in the terminal. If you do not have Node installed you can get it from https://nodejs.org
 
-Follow the [Authorization docs](https://docs.hasura.io/0.15/manual/users/uikit.html) to add Authentication kit to your app.
+* Before you begin, ensure that you have the latest version of the `hasura cli` installed. You can find instructions to download the `hasura cli` from [here](https://docs.hasura.io/0.15/manual/install-hasura-cli.html)
 
-### Add a custom API
 
-Hasura project is composed of a set of microservices. These include certain Hasura microservices like, postgres, nginx, data API, auth API and more but can also include your own microservices.
-This quickstart comes with one such custom service written in `nodejs` using the `express` framework. Check it out in action at `https://api.cluster-name.hasura-app.io` . Currently, it just returns a "Hello-React" at that endpoint.
+## Future Scope
+Currently, our app is quite simple but we want to improve it further by implementing few changes in the future. We aspire to refine its UI further and eventually add few more features to it.
 
-* [Adding Microservice](https://docs.hasura.io/0.15/manual/custom-microservices/index.html)
-
-### Add data APIs
-
-Hasura comes with set of Data APIs to access the Postgres database which comes bundled with every Hasura cluster.
-Detailed docs of data APIs can be found [here](https://docs.hasura.io/0.15/manual/data/index.html).
