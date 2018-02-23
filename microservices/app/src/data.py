@@ -42,7 +42,6 @@ def like():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -63,7 +62,7 @@ headers = {
     print(url)
     print(json.dumps(query))
     response = requests.post(
-        url, data=json.dumps(query),headers=headers
+        dataUrl, data=json.dumps(query),headers=headers
     )
     data = response.json()
     print(json.dumps(data))
@@ -75,7 +74,6 @@ def nope():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -106,7 +104,7 @@ headers = {
     print(url)
     print(json.dumps(query))
     response = requests.post(
-        url, data=json.dumps(query),headers=headers
+        dataUrl, data=json.dumps(query),headers=headers
     )
     data = response.json()
     print(json.dumps(data))
@@ -118,7 +116,6 @@ def likeUsers():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url = 'http://data.hasura/v1/query'
 sql = query = "select match.like_user_id, userinfo.name,userinfo.profile_file_id from match,userinfo where match.like_user_id = userinfo.hasura_id AND match.hasura_id ="+hasura_id
 # Setting headers
 headers = {
@@ -136,7 +133,7 @@ headers = {
     print(url)
     print(json.dumps(query))
     response = requests.post(
-        url, data=json.dumps(query),headers=headers
+        dataUrl, data=json.dumps(query),headers=headers
     )
     data = response.json()
     print(json.dumps(data))
@@ -148,7 +145,6 @@ def update():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -176,7 +172,7 @@ headers = {
     print(url)
     print(json.dumps(query))
     response = requests.post(
-        url, data=json.dumps(query),headers=headers
+        dataUrl, data=json.dumps(query),headers=headers
     )
     data = response.json()
     print(json.dumps(data))
@@ -188,7 +184,6 @@ def insert():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -217,7 +212,7 @@ headers = {
     print(url)
     print(json.dumps(query))
     response = requests.post(
-        url, data=json.dumps(query),headers=headers
+        dataUrl, data=json.dumps(query),headers=headers
     )
     data = response.json()
     print(json.dumps(data))
@@ -230,7 +225,6 @@ def getalluserinfo():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
         "Content-Type": "application/json",
@@ -250,7 +244,7 @@ headers = {
     print(url)
     print(json.dumps(query))
     response = requests.post(
-        url, data=json.dumps(query),headers=headers
+        dataUrl, data=json.dumps(query),headers=headers
     )
     data = response.json()
     print(json.dumps(data))
@@ -262,7 +256,7 @@ def delete():
      hasura_id = request.headers['X-Hasura-User-Id']
      if (hasura_id not in [0 , 1]):
 # This is the url to which the query is made
-url= 'http://auth.hasura/v1/admin/delete-user'
+ url = 'http://auth.hasura/v1/admin/delete-user'
 # Setting headers
 headers = {
 'X-Hasura-User-Id': 1,
