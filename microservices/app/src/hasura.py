@@ -23,13 +23,13 @@ else:
     dataUrl = "https://data." + CLUSTER_NAME + ".hasura-app.io/v1/query"
 
 hasura_examples = Blueprint('hasura_examples', __name__)
-    dataUrl = "http://data.hasura/v1/query"
+
 @hasura_examples.route("/like",methods=['POST'])
 def like():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= dataUrl
+url= "http://data.hasura/v1/query"
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -62,7 +62,7 @@ def nope():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= dataUrl
+url= "http://data.hasura/v1/query"
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -105,7 +105,7 @@ def likeUsers():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= dataUrl
+url= "http://data.hasura/v1/query"
 sql = query = "select match.like_user_id, userinfo.name,userinfo.profile_file_id from match,userinfo where match.like_user_id = userinfo.hasura_id AND match.hasura_id ="+hasura_id
 # Setting headers
 headers = {
@@ -135,7 +135,7 @@ def update():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= dataUrl
+url= "http://data.hasura/v1/query"
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -175,7 +175,7 @@ def insert():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= dataUrl
+url= "http://data.hasura/v1/query"
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -217,7 +217,7 @@ def getalluserinfo():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= dataUrl
+url= "http://data.hasura/v1/query"
 # Setting headers
 headers = {
         "Content-Type": "application/json",
