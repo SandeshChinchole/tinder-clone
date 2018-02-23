@@ -35,12 +35,14 @@ def get_articles():
     return ("""Edit the dataUrl variable in
         <code>microservices/app/src/hasura.py</code>
         to test locally.""")
+
+
 @app.route("/like",methods=['POST'])
 def like():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url = dataUrl
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -66,14 +68,14 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'like request failed'})
+else: return jsonify(message = "like request failed")
 
 @app.route("/nope",methods=['POST'])
 def nope():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url = dataUrl
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -109,14 +111,14 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'nope request failed'})
+else: return jsonify(message = "nope request failed")
 
 @app.route("/like-users")
 def likeUsers():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url = dataUrl
+url = 'http://data.hasura/v1/query'
 sql = query = "select match.like_user_id, userinfo.name,userinfo.profile_file_id from match,userinfo where match.like_user_id = userinfo.hasura_id AND match.hasura_id ="+hasura_id
 # Setting headers
 headers = {
@@ -139,14 +141,14 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'like-users request failed'})
+else: return jsonify(message = "like-users request failed")
 
 @app.route("/update-user",methods=['POST'])
 def update():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url = dataUrl
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -179,14 +181,14 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'update-user request failed'})
+else: return jsonify(message = "update-user request failed")
 
 @app.route("/insert-user",methods=['POST'])
 def insert():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url = dataUrl
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -220,7 +222,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'insert-user request failed'})
+else: return jsonify(message = "insert-user request failed")
 
 
 @app.route("/get-allusers-info")
@@ -228,7 +230,7 @@ def getalluserinfo():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url = dataUrl
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
         "Content-Type": "application/json",
@@ -253,7 +255,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'get-allusers-info request failed'})
+else: return jsonify(message = "get-allusers-info request failed")
 
 @app.route("/delete",methods=['POST'])
 def delete():
@@ -279,4 +281,4 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: return jsonify({'message': 'delete request failed'})
+else: return jsonify(message = "delete request failed")
