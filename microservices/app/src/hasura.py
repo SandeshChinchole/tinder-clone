@@ -27,7 +27,7 @@ hasura_examples = Blueprint('hasura_examples', __name__)
 @hasura_examples.route("/like",methods=['POST'])
 def like():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= dataUrl
 # Setting headers
@@ -60,7 +60,7 @@ else: jsonify({'message': 'like request failed'})
 @hasura_examples.route("/nope",methods=['POST'])
 def nope():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= dataUrl
 # Setting headers
@@ -103,7 +103,7 @@ else: jsonify({'message': 'nope request failed'})
 @hasura_examples.route("/like-users")
 def likeUsers():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= dataUrl
 sql = query = "select match.like_user_id, userinfo.name,userinfo.profile_file_id from match,userinfo where match.like_user_id = userinfo.hasura_id AND match.hasura_id ="+hasura_id
@@ -133,7 +133,7 @@ else: jsonify({'message': 'like-users request failed'})
 @hasura_examples.route("/update-user",methods=['POST'])
 def update():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= dataUrl
 # Setting headers
@@ -173,7 +173,7 @@ else: jsonify({'message': 'update-user request failed'})
 @hasura_examples.route("/insert-user",methods=['POST'])
 def insert():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= dataUrl
 # Setting headers
@@ -215,7 +215,7 @@ else: jsonify({'message': 'insert-user request failed'})
 @hasura_examples.route("/get-allusers-info")
 def getalluserinfo():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= dataUrl
 # Setting headers
@@ -247,7 +247,7 @@ else: jsonify({'message': 'get-allusers-info request failed'})
 @hasura_examples.route("/delete",methods=['POST'])
 def delete():
      hasura_id = request.headers['X-Hasura-User-Id']
-     if hasura_id > 1 :
+     if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
 url= 'http://auth.hasura/v1/admin/delete-user'
 # Setting headers
