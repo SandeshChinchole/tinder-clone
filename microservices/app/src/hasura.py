@@ -23,7 +23,9 @@ else:
     dataUrl = "https://data." + CLUSTER_NAME + ".hasura-app.io/v1/query"
 
 hasura_examples = Blueprint('hasura_examples', __name__)
-
+@hasura_examples.route("/")
+def home():
+    return 'hellow- world'
 @hasura_examples.route("/like",methods=['POST'])
 def like():
      hasura_id = request.headers['X-Hasura-User-Id']
@@ -55,7 +57,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'like request failed'})
+else: return jsonify({'message': 'like request failed'})
 
 @hasura_examples.route("/nope",methods=['POST'])
 def nope():
@@ -98,7 +100,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'nope request failed'})
+else: return jsonify({'message': 'nope request failed'})
 
 @hasura_examples.route("/like-users")
 def likeUsers():
@@ -128,7 +130,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'like-users request failed'})
+else: return jsonify({'message': 'like-users request failed'})
 
 @hasura_examples.route("/update-user",methods=['POST'])
 def update():
@@ -168,7 +170,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'update-user request failed'})
+else: return jsonify({'message': 'update-user request failed'})
 
 @hasura_examples.route("/insert-user",methods=['POST'])
 def insert():
@@ -209,7 +211,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'insert-user request failed'})
+else: return jsonify({'message': 'insert-user request failed'})
 
 
 @hasura_examples.route("/get-allusers-info")
@@ -242,7 +244,7 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'get-allusers-info request failed'})
+else: return jsonify({'message': 'get-allusers-info request failed'})
 
 @hasura_examples.route("/delete",methods=['POST'])
 def delete():
@@ -268,4 +270,4 @@ headers = {
     data = response.json()
     print(json.dumps(data))
     return jsonify(data=data)
-else: jsonify({'message': 'delete request failed'})
+else: return jsonify({'message': 'delete request failed'})
