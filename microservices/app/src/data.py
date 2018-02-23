@@ -11,6 +11,7 @@ from src import app
 # When deployed to your cluster, use this:
 dataUrl = 'http://data.hasura/v1/query'
 
+
 @app.route("/data")
 def get_articles():
     if ('anonymous' in request.headers['x-hasura-allowed-roles']):
