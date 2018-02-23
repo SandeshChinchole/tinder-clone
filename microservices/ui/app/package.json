@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-    "start": "cross-env REACT_APP_CLUSTER_NAME=embroidery86 webpack-dev-server ",
-     "build": "webpack"
+    "start": " webpack-dev-server --open --host ::  --disable-host-check",
+    "build": "webpack --config webpack.config.js",
+    "server": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,14 +18,18 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "express": "^4.16.2",
     "fetch": "^1.1.0",
     "file-loader": "^1.1.6",
     "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^2.0.4",
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "client-ip": "^1.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "request-ip": "^2.0.2",
     "styled-components": "^3.0.2"
   }
 }

@@ -4,13 +4,13 @@ RUN apt-get update && apt-get install -y build-essential python
 
 #Install deps
 RUN mkdir /app
-COPY app/package.json /app/package.json
-RUN cd /app && npm install
+ADD app /app/
+RUN cd /app && npm install && npm run build
 RUN npm -g install serve
 
 #Add all source code
-ADD app /app/
-RUN cd /app
+
+#RUN cd /app 
 
 WORKDIR /app
 
