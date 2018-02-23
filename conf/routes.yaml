@@ -159,7 +159,7 @@ notify:
     upstreamServicePath: /
     upstreamServicePort: 80
     corsPolicy: allow_all
-ui:
+companion:
   /:
     corsPolicy: null
     enableAuth: true
@@ -172,21 +172,8 @@ ui:
       namespace: '{{ cluster.metadata.namespaces.user }}'
     upstreamServicePath: /
     upstreamServicePort: 80
-api:
-  /:
-    corsPolicy: null
-    enableAuth: true
-    enableCORS: true
-    enableWebsockets: true
-    locationDirectives: ""
-    restrictToRoles: []
-    upstreamService:
-      name: api
-      namespace: '{{ cluster.metadata.namespaces.user }}'
-    upstreamServicePath: /
-    upstreamServicePort: 80
 
-app:
+api:
   /:
     corsPolicy: allow_all
     upstreamService:
@@ -194,5 +181,3 @@ app:
       namespace: '{{ cluster.metadata.namespaces.user }}'
     upstreamServicePath: /
     upstreamServicePort: 80
-
-

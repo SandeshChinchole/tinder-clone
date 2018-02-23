@@ -57,7 +57,7 @@ headers = {
     return jsonify(data=data)
 else: jsonify({'message': 'like request failed'})
 
-@hasura_examples.route("/nope",methods=['POST')
+@hasura_examples.route("/nope",methods=['POST'])
 def nope():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id > 1 :
@@ -130,7 +130,7 @@ headers = {
     return jsonify(data=data)
 else: jsonify({'message': 'like-users request failed'})
 
-@hasura_examples.route("/update-user",methods=['POST')
+@hasura_examples.route("/update-user",methods=['POST'])
 def update():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id > 1 :
@@ -170,7 +170,7 @@ headers = {
     return jsonify(data=data)
 else: jsonify({'message': 'update-user request failed'})
 
-@hasura_examples.route("/insert-user",methods=['POST')
+@hasura_examples.route("/insert-user",methods=['POST'])
 def insert():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id > 1 :
@@ -243,3 +243,29 @@ headers = {
     print(json.dumps(data))
     return jsonify(data=data)
 else: jsonify({'message': 'get-allusers-info request failed'})
+
+@hasura_examples.route("/delete",methods=['POST'])
+def delete():
+     hasura_id = request.headers['X-Hasura-User-Id']
+     if hasura_id > 1 :
+# This is the url to which the query is made
+url= 'http://auth.hasura/v1/admin/delete-user'
+# Setting headers
+headers = {
+'X-Hasura-User-Id': 1,
+    "Content-Type": "application/json",
+      'X-Hasura-Role': "admin",
+      "X-Hasura-Allowed-Roles": "user,admin"
+      }
+    query = {
+    "hasura_id": hasura_id
+    }
+    print(url)
+    print(json.dumps(query))
+    response = requests.post(
+        url, data=json.dumps(query),headers=headers
+    )
+    data = response.json()
+    print(json.dumps(data))
+    return jsonify(data=data)
+else: jsonify({'message': 'delete request failed'})
