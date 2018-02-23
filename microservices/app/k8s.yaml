@@ -19,12 +19,12 @@ items:
           app: app
       spec:
         containers:
-        - env:
+        - image: hasura/hello-world:latest
+          env:
           - name: PRODUCTION
             value: "true"
-          - name: CLUSTER_NAME
-            value: '{{ cluster.name }}'
-          image: hasura/hello-world:latest
+          - name: CLUSTER_NAME 
+            value: {{ cluster.name }}
           imagePullPolicy: IfNotPresent
           name: app
           ports:
