@@ -13,58 +13,74 @@ dataUrl = 'http://data.hasura/v1/query'
 
 @app.route("/data")
 def get_articles():
-    if ('hasura-app.io' in request.url_root) or \
-       ('data.hasura' not in dataUrl):
+    if ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return render_template(
+            'filestore_anonymous.html',
+            **{'base_domain': request.headers['X-Hasura-Base-Domain']}
+        )
 
-        query = {
+    # If user is logged in, show the user files they have uploaded
+    else:
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        requestPayload = {
             "type": "select",
             "args": {
-                "table": "article",
-                "columns": [ "title", "id", "author_id", "rating", "title" ],
-                "limit": 10
+                "table": {
+                    "name": "hf_file",
+                    "schema": "hf_catalog"
+                },
+                "columns": [ "*" ],
+                "where": {"user_id": request.headers['x-hasura-user-id']}
             }
         }
 
-        response = requests.post(dataUrl, data=json.dumps(query))
-        if response.status_code == 200:
-            return render_template('data.html', data=json.dumps(response.json(), indent=2, sort_keys=True))
-        else:
-            return 'Something went wrong: <br/>' + str(response.status_code) + '<br/>' + response.text
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload))
 
-    # Change the data URL during local development
-    return ("""Edit the dataUrl variable in
-        <code>microservices/app/src/hasura.py</code>
-        to test locally.""")
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return "Something went wrong while trying to fetch files: " + resp.text
 
-
+        files = resp.json()
+        return render_template('filestore_user.html',
+            **{
+                'base_domain': request.headers['X-Hasura-Base-Domain'],
+                'files': files
+            })
 
 @app.route("/get-allusers-info")
 def getalluserinfo():
+    if ('admin' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "insert-user request failed")
+    elif ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "insert-user request failed")
+    # If user is logged in, show the user files they have uploaded
+    else:
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        headers = {
+              "Content-Type": "application/json",
+              'X-Hasura-User-Id': 1,
+              'X-Hasura-Role': "admin",
+              "X-Hasura-Allowed-Roles": "user,admin"
+        }
+        requestPayload = {
+        'type': 'select',
+        'args': {
+        'table': 'userinfo',
+        'columns': [
+          '*'
+            ]
+          }
+        }
 
-if request.headers['X-Hasura-User-Id'] != 1:
-# This is the url to which the query is made
-# Setting headers
-    headers = {
-          "Content-Type": "application/json",
-          'X-Hasura-User-Id': 1,
-          'X-Hasura-Role': "admin",
-          "X-Hasura-Allowed-Roles": "user,admin"
-    }
-    query = {
-    'type': 'select',
-    'args': {
-    'table': 'userinfo',
-    'columns': [
-      '*'
-        ]
-      }
-    }
-    print(url)
-    print(json.dumps(query))
-    response = requests.post(
-        dataUrl, data=json.dumps(query),headers=headers
-    )
-    data = response.json()
-    print(json.dumps(data))
-    return jsonify(data=data)
-else: return jsonify(message = "get-allusers-info request failed")
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload))
+
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return jsonify(message = "insert-user request failed")
+        data = resp.json()
+        print(json.dumps(data))
+        return jsonify(data=data)
