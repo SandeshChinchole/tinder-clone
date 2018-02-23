@@ -17,7 +17,7 @@ if CLUSTER_NAME is None:
 if PRODUCTION_ENV == "true":
     # set dataUrl as internal url if PRODUCTION_ENV is true
     # note that internal url has admin permissions
-    dataUrl = "http://data.hasura/v1/query"
+    dataUrl = 'http://data.hasura/v1/query'
 else:
     # for local development, contact the cluster via external url
     dataUrl = "https://data." + CLUSTER_NAME + ".hasura-app.io/v1/query"
@@ -29,7 +29,7 @@ def like():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= "http://data.hasura/v1/query"
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -62,7 +62,7 @@ def nope():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= "http://data.hasura/v1/query"
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -105,7 +105,7 @@ def likeUsers():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= "http://data.hasura/v1/query"
+url = 'http://data.hasura/v1/query'
 sql = query = "select match.like_user_id, userinfo.name,userinfo.profile_file_id from match,userinfo where match.like_user_id = userinfo.hasura_id AND match.hasura_id ="+hasura_id
 # Setting headers
 headers = {
@@ -135,7 +135,7 @@ def update():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= "http://data.hasura/v1/query"
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -175,7 +175,7 @@ def insert():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= "http://data.hasura/v1/query"
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
     "Content-Type": "application/json",
@@ -217,7 +217,7 @@ def getalluserinfo():
      hasura_id = request.headers['X-Hasura-User-Id']
      if hasura_id not in [0 , 1] :
 # This is the url to which the query is made
-url= "http://data.hasura/v1/query"
+url = 'http://data.hasura/v1/query'
 # Setting headers
 headers = {
         "Content-Type": "application/json",
