@@ -287,3 +287,39 @@ def delete():
         data = resp.json()
         print(json.dumps(data))
         return jsonify(data=data)
+@app.route("/like",methods=['POST'])
+def like():
+    if ('admin' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "like request failed")
+    elif ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "like request failed")
+    # If user is logged in, show the user files they have uploaded
+    else:
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        headers = {
+                "Content-Type": "application/json",
+                'X-Hasura-User-Id': request.headers['X-Hasura-User-Id'],
+                'X-Hasura-Role': request.headers['x-hasura-role'],
+                "X-Hasura-Allowed-Roles": request.headers['x-hasura-allowed-roles']
+        }
+        requestPayload = {
+            "type": "insert",
+            "args": {
+                "table": "match",
+                "objects": [
+                   "like_user_id": request.form['like_user_id'],
+                    "hasura_id": request.headers['X-Hasura-User-Id']
+                ]
+            }
+        }
+
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return jsonify(message = "like request failed")
+        data = resp.json()
+        print(json.dumps(data))
+        return jsonify(data=data)
