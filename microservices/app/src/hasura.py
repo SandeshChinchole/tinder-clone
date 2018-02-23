@@ -23,7 +23,7 @@ else:
     dataUrl = "https://data." + CLUSTER_NAME + ".hasura-app.io/v1/query"
 
 hasura_examples = Blueprint('hasura_examples', __name__)
-
+    dataUrl = "http://data.hasura/v1/query"
 @hasura_examples.route("/like",methods=['POST'])
 def like():
      hasura_id = request.headers['X-Hasura-User-Id']
