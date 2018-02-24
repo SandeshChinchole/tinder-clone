@@ -310,7 +310,7 @@ def delete():
                      "X-Hasura-Allowed-Roles": "user,admin"
         }
         requestPayload = {
-            "hasura_id": request.headers['X-Hasura-User-Id']
+            "hasura_id": int(request.headers['X-Hasura-User-Id'])
         }
 
         resp = requests.post("http://auth.hasura/v1/admin/delete-user", data=json.dumps(requestPayload),headers=headers)
