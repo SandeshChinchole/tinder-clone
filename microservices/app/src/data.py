@@ -109,12 +109,11 @@ def like():
                 "objects": [
                     {
                         "hasura_id": request.headers['X-Hasura-User-Id'],
-                        "like_user_id": "3"
+                        "like_user_id": request.form['like_user_id']
                     }
                 ]
             }
-
-
+        }
         resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
 
         # resp.content contains the json response.
