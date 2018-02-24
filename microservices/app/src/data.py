@@ -172,7 +172,7 @@ def nope():
 
 @app.route("/insert-user",methods=['POST'])
 def insert_user():
-    print (request.form)
+    print (request.form['name'])
     if ('admin' in request.headers['x-hasura-allowed-roles']) or \
         ('anonymous' in request.headers['x-hasura-allowed-roles']):
         return jsonify(message = "insert-user request failed")
@@ -197,7 +197,7 @@ def insert_user():
                       "email": request.form['email'],
                       "gender": request.form['gender'],
                       "profile_file_id": request.form['file_id'],
-                      "age": str(request.form['age']),
+                      "age": request.form['age'],
                       "about_me": request.form['about_me'],
                       "city": request.form['city']
                   }
