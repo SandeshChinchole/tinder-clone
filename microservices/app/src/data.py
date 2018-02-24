@@ -1,5 +1,5 @@
 import requests, json
-from flask import request, render_template, jsonify
+from flask import request, render_template, jsonify, Response
 from src import app
 
 # // For local development,
@@ -82,4 +82,4 @@ def getalluserinfo():
             return jsonify(message = "get-allusers-info request failed")
         data = resp.json()
         print(json.dumps(data))
-        return json.dumps(data)
+        return Response(json.dumps(data),  mimetype='application/json')
