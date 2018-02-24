@@ -52,17 +52,15 @@ def get_articles():
 
 @app.route("/get-allusers-info")
 def getalluserinfo():
-    if ('admin' in request.headers['x-hasura-allowed-roles']):
-        return jsonify(message = "insert-user request failed")
-    elif ('anonymous' in request.headers['x-hasura-allowed-roles']):
-        return jsonify(message = "insert-user request failed")
+    if ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "getalluserinfo request failed")
     # If user is logged in, show the user files they have uploaded
     else:
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
               "Content-Type": "application/json",
-              'X-Hasura-User-Id': 1,
+              'X-Hasura-User-Id': '1',
               'X-Hasura-Role': "admin",
               "X-Hasura-Allowed-Roles": "user,admin"
         }
