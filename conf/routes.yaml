@@ -175,7 +175,9 @@ soulmate:
 
 api:
   /:
-    corsPolicy: allow_all
+    corsPolicy: ["http://[::]:8080"]
+    enableAuth: true
+    enableCORS: true
     upstreamService:
       name: app
       namespace: '{{ cluster.metadata.namespaces.user }}'

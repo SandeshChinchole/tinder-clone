@@ -212,7 +212,7 @@ export class Login extends React.Component{
     return (
       <div>
         <TinderLogo>
-           <img style ={{width: "30%"}} src={config.icons.tinder}  />
+           <img style ={{width: "30%",height:"22%"}} src={config.icons.tinder}  />
         </TinderLogo>
         <P>Welcome</P>
         <Input id="username" placeholder="User Name" type="text" />
