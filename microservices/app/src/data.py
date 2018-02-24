@@ -52,8 +52,9 @@ def get_articles():
 
 @app.route("/get-allusers-info")
 def getalluserinfo():
-    if ('anonymous' in request.headers['x-hasura-allowed-roles']):
-        return jsonify(message = "get-allusers-info request failed")
+    if ('admin' in request.headers['x-hasura-allowed-roles']) or \
+        ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "like request failed")
     # If user is logged in, show the user files they have uploaded
     else:
         # Query from the file-upload table to fetch files this user owns.
@@ -82,5 +83,6 @@ def getalluserinfo():
             return jsonify(message = "get-allusers-info request failed")
         data = resp.json()
         print(json.dumps(data))
+        #may be we can use this but it's ok to use directly jsonfiy here
         #return Response(json.dumps(data),  mimetype='application/json')
         return jsonify(data)
