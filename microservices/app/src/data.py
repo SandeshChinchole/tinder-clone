@@ -137,6 +137,7 @@ def like():
         return jsonify(message = "like request failed")
     # If user is logged in, show the user files they have uploaded
     else:
+        data = request.json
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
@@ -174,6 +175,7 @@ def nope():
         return jsonify(message = "nope request failed")
     # If user is logged in, show the user files they have uploaded
     else:
+        data = request.json
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
@@ -195,7 +197,7 @@ def nope():
                       },
                       {
                           "like_user_id": {
-                              "$eq": int(data['like_user_id'])
+                              "$eq": data['like_user_id']
                               }
                           }
                       ]
@@ -209,6 +211,113 @@ def nope():
         if not(resp.status_code == 200):
             print (resp.text)
             return jsonify(message = "nope request failed")
+        data = resp.json()
+        print(json.dumps(data))
+        return jsonify(data)
+
+@app.route("/like-users")
+def like_users():
+    if ('admin' in request.headers['x-hasura-allowed-roles']) or \
+        ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "like-users request failed")
+    # If user is logged in, show the user files they have uploaded
+    else:
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        query = "select match.like_user_id, userinfo.name,userinfo.profile_file_id from match,userinfo where match.like_user_id = userinfo.hasura_id AND match.hasura_id ="+request.headers['X-Hasura-User-Id']
+        # Setting headers
+        headers = {
+              "Content-Type": "application/json",
+              'X-Hasura-User-Id': "1",
+              'X-Hasura-Role': "admin",
+              "X-Hasura-Allowed-Roles": "user,admin"
+        }
+        requestPayload = {
+            "type": "run_sql",
+            "args": {
+              "sql": query
+            }
+         }
+
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload), headers=headers)
+
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return jsonify(message = "like-users request failed")
+        data = resp.json()
+        print(json.dumps(data))
+        return jsonify(data)
+
+@app.route("/update-user",methods=['POST'])
+def update_user():
+    if ('admin' in request.headers['x-hasura-allowed-roles']) or \
+        ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "update-user request failed")
+    # If user is logged in, show the user files they have uploaded
+    else:
+        data = request.json
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        headers = {
+                "Content-Type": "application/json",
+                'X-Hasura-User-Id': request.headers['X-Hasura-User-Id'],
+                'X-Hasura-Role': request.headers['x-hasura-role'],
+                "X-Hasura-Allowed-Roles": request.headers['x-hasura-allowed-roles']
+        }
+        requestPayload = {
+            "type": "update",
+            "args": {
+              "table": "userinfo",
+              "where": {
+                  "hasura_id": {
+                      "$eq": request.headers['X-Hasura-User-Id']
+                  }
+              },
+              "$set": {
+                  "email": data['email'],
+                  "name": data['name'],
+                  "age": data['age'],
+                  "about_me": data['about']
+              }
+            }
+        }
+
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return jsonify(message = "update-user request failed")
+        data = resp.json()
+        print(json.dumps(data))
+        return jsonify(data)
+
+@app.route("/delete",methods=['POST'])
+def delete():
+    if ('admin' in request.headers['x-hasura-allowed-roles']) or \
+        ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "delete request failed")
+    # If user is logged in, show the user files they have uploaded
+    else:
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        headers = {
+                    'X-Hasura-User-Id': "1",
+                    "Content-Type": "application/json",
+                     'X-Hasura-Role': "admin",
+                     "X-Hasura-Allowed-Roles": "user,admin"
+        }
+        requestPayload = {
+            "hasura_id": request.headers['X-Hasura-User-Id']
+        }
+
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return jsonify(message = "delete request failed")
         data = resp.json()
         print(json.dumps(data))
         return jsonify(data)
