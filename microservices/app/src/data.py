@@ -347,7 +347,10 @@ def delete():
                 print ("here -5")
                 data = resp.json()
                 print (data)
-                file_id = data[0].profile_file_id
+                d = data[0]
+                print (d)
+                file_id = d['profile_file_id']
+                print (file_id)
                 url = 'https://filestore.acrophobia73.hasura-app.io/v1/file/'+file_id
                 resp = requests.delete(dataUrl,headers=headers)
                 # resp.content contains the json response.
