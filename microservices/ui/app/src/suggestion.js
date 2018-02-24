@@ -170,7 +170,7 @@ render(){
           <Head>
             <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr"}}>
               <div style={{display:"flex",justifyContent:"center",marginRight: -10}}>
-                <img onClick={this.handleProfile} style={{borderRadius: "100%", border:" 2px solid #fff",width: "50px",height:" 40px", marginTop: 12}} src={cUrl} />
+                <img onClick={this.handleProfile} style={{borderRadius: "100%", border:" 2px solid #fff",width: "64px",height:" 48px", marginTop: 9}} src={cUrl} />
               </div>
               <div style={{display:"flex",justifyContent:"center",marginRight: 30}}>
                 <img  style={{borderRadius: "100%", border:" 2px solid #fff",width: "50px",height:" 40px", marginTop: 12}} src={tinderUrl} />

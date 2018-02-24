@@ -46,7 +46,7 @@ const Button = styled.button`
 const TinderLogo = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 45px;
 `;
 const P = styled.p`
   font-size: 1.5em;
@@ -212,7 +212,7 @@ export class Login extends React.Component{
     return (
       <div>
         <TinderLogo>
-           <img src={config.icons.tinder}  />
+           <img style ={{width: "30%"}} src={config.icons.tinder}  />
         </TinderLogo>
         <P>Welcome</P>
         <Input id="username" placeholder="User Name" type="text" />

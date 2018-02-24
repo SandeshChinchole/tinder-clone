@@ -1,0 +1,18 @@
+- args:
+    role: user
+    table: match
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - like_user_id
+      - hasura_id
+      filter:
+        $or:
+        - hasura_id:
+            $eq: X-HASURA-USER-ID
+        - like_user_id:
+            $eq: X-HASURA-USER-ID
+    role: user
+    table: match
+  type: create_select_permission
