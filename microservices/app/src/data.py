@@ -278,7 +278,7 @@ def update_user():
                   "email": data['email'],
                   "name": data['name'],
                   "age": data['age'],
-                  "about_me": data['about']
+                  "about_me": data['about_me']
               }
             }
         }
