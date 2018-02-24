@@ -107,11 +107,13 @@ def like():
             "args": {
                 "table": "match",
                 "objects": [
-                   "like_user_id": int(request.form['like_user_id']),
-                    "hasura_id": request.headers['X-Hasura-User-Id']
+                    {
+                        "hasura_id": request.headers['X-Hasura-User-Id'],
+                        "like_user_id": "3"
+                    }
                 ]
             }
-        }
+
 
         resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
 
