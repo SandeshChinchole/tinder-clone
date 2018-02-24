@@ -13,8 +13,8 @@ dataUrl = 'http://data.hasura/v1/query'
 
 @app.route("/insert-user",methods=['POST'])
 def insert_user():
-    print request.json
-    print request.form['name']
+    print (request.json)
+    print (request.form['name'])
     if ('admin' in request.headers['x-hasura-allowed-roles']) or \
         ('anonymous' in request.headers['x-hasura-allowed-roles']):
         return jsonify(message = "insert-user request failed")
