@@ -107,7 +107,7 @@ def like():
             "args": {
                 "table": "match",
                 "objects": [
-                   "like_user_id": request.form['like_user_id']+"",
+                   "like_user_id": int(request.form['like_user_id']),
                     "hasura_id": request.headers['X-Hasura-User-Id']
                 ]
             }
@@ -151,7 +151,7 @@ def nope():
                       },
                       {
                           "like_user_id": {
-                              "$eq": request.form['like_user_id']+""
+                              "$eq": int(request.form['like_user_id'])
                               }
                           }
                       ]
