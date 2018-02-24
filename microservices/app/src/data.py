@@ -300,6 +300,7 @@ def delete():
         return jsonify(message = "delete request failed")
     # If user is logged in, show the user files they have uploaded
     else:
+        print ("here -1 ")
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
@@ -315,10 +316,12 @@ def delete():
         resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
 
         # resp.content contains the json response.
+        print ("here -2")
         if not(resp.status_code == 200):
             print (resp.text)
             return jsonify(message = "delete request failed")
         else:
+            print ("here -3")
             requestPayload = {
                     "type": "select",
                     "args": {
@@ -336,13 +339,14 @@ def delete():
 
             resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
             # resp.content contains the json response.
+            print ("here -4")
             if not(resp.status_code == 200):
                 print (resp.text)
                 return jsonify(message = "delete request failed")
             else:
-
+                print ("here -4")
                 data = resp.json()
-                file_id = data[0].profile_file_id
+                file_id = data.profile_file_id
                 url = 'https://filestore.acrophobia73.hasura-app.io/v1/file/'+file_id
                 resp = requests.delete(dataUrl,headers=headers)
                 # resp.content contains the json response.
