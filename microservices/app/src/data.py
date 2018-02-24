@@ -392,7 +392,7 @@ def delete():
                     if not(resp.status_code == 200):
                         print (resp.text)
                         return jsonify(message = "delete request failed")
-                    else
+                    else:
                         data = resp.json()
                         print(json.dumps(data))
                         return jsonify(data)
