@@ -188,7 +188,7 @@ def insert_user():
         }
         requestPayload = {
             "type": "insert",
-            "aheaders: {
+            "args": {
               "table": "userinfo",
               "objects": [
                   {
