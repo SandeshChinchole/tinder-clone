@@ -318,6 +318,81 @@ def delete():
         if not(resp.status_code == 200):
             print (resp.text)
             return jsonify(message = "delete request failed")
-        data = resp.json()
-        print(json.dumps(data))
-        return jsonify(data)
+        else:
+            requestPayload = {
+                    "type": "select",
+                    "args": {
+                        "table": "userinfo",
+                        "columns": [
+                            "profile_file_id"
+                        ],
+                        "where": {
+                            "hasura_id": {
+                                "$eq": request.headers['X-Hasura-User-Id']
+                            }
+                        }
+                    }
+                    }
+
+            resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+            # resp.content contains the json response.
+            if not(resp.status_code == 200):
+                print (resp.text)
+                return jsonify(message = "delete request failed")
+            else:
+
+                data = resp.json()
+                file_id = data[0].profile_file_id
+                url = 'https://filestore.acrophobia73.hasura-app.io/v1/file/'+file_id
+                resp = requests.delete(dataUrl,headers=headers)
+                # resp.content contains the json response.
+                if not(resp.status_code == 200):
+                    print (resp.text)
+                    return jsonify(message = "delete request failed")
+                else:
+                    requestPayload = {
+                        "type": "bulk",
+                                "args": [
+                                    {
+                                        "type": "delete",
+                                        "args": {
+                                            "table": "match",
+                                            "where": {
+                                                "$or": [
+                                                    {
+                                                        "hasura_id": {
+                                                            "$eq": request.headers['X-Hasura-User-Id']
+                                                        }
+                                                    },
+                                                    {
+                                                        "like_user_id": {
+                                                            "$eq": request.headers['X-Hasura-User-Id']
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "delete",
+                                        "args": {
+                                            "table": "userinfo",
+                                            "where": {
+                                                "hasura_id": {
+                                                    "$eq": request.headers['X-Hasura-User-Id']
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                              }
+
+                    resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+                    # resp.content contains the json response.
+                    if not(resp.status_code == 200):
+                        print (resp.text)
+                        return jsonify(message = "delete request failed")
+                    else
+                        data = resp.json()
+                        print(json.dumps(data))
+                        return jsonify(data)
