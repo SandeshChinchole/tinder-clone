@@ -13,12 +13,11 @@ dataUrl = 'http://data.hasura/v1/query'
 
 @app.route("/insert-user",methods=['POST'])
 def insert_user():
-    print (request.json)
     if ('admin' in request.headers['x-hasura-allowed-roles']) or \
         ('anonymous' in request.headers['x-hasura-allowed-roles']):
         return jsonify(message = "insert-user request failed")
     else:
-        print (request.headers)
+        data = request.json
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
@@ -34,13 +33,13 @@ def insert_user():
               "objects": [
                   {
                       "hasura_id": request.headers['X-Hasura-User-Id'],
-                      "name": request.form['name'],
-                      "email": request.form['email'],
-                      "gender": request.form['gender'],
-                      "profile_file_id": request.form['file_id'],
-                      "age": request.form['age'],
-                      "about_me": request.form['about_me'],
-                      "city": request.form['city']
+                      "name": data['name'],
+                      "email": data['email'],
+                      "gender": data['gender'],
+                      "profile_file_id": data['file_id'],
+                      "age": data['age'],
+                      "about_me": data['about_me'],
+                      "city": data['city']
                   }
               ]
             }
@@ -153,7 +152,7 @@ def like():
                 "objects": [
                     {
                         "hasura_id": request.headers['X-Hasura-User-Id'],
-                        "like_user_id": request.form['like_user_id']
+                        "like_user_id": data['like_user_id']
                     }
                 ]
             }
@@ -196,7 +195,7 @@ def nope():
                       },
                       {
                           "like_user_id": {
-                              "$eq": int(request.form['like_user_id'])
+                              "$eq": int(data['like_user_id'])
                               }
                           }
                       ]
