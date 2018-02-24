@@ -344,8 +344,9 @@ def delete():
                 print (resp.text)
                 return jsonify(message = "delete request failed")
             else:
-                print ("here -4")
+                print ("here -5")
                 data = resp.json()
+                print (data)
                 file_id = data[0].profile_file_id
                 url = 'https://filestore.acrophobia73.hasura-app.io/v1/file/'+file_id
                 resp = requests.delete(dataUrl,headers=headers)
