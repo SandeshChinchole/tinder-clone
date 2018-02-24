@@ -82,4 +82,4 @@ def getalluserinfo():
             return jsonify(message = "get-allusers-info request failed")
         data = resp.json()
         print(json.dumps(data))
-        return data
+        return json.dumps(data)
