@@ -7,6 +7,7 @@ import LogoIcon from "./../assets/logo.jpg"
 import LogoCropIcon from "./../assets/logocrop.jpg"
 import LikeUserIcon from "./../assets/like_user.svg"
 
+
 //now no need to  react refrence becoz here we use jsx element and need a React reference at compile time to make an element using  React.creatElement
 //you may hardcoded the clustername but alternative and best is i think.
 //if your hostname is ui.cluster-name.hasura-app.io then cluste name can be get using this.
