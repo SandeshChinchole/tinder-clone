@@ -4,7 +4,7 @@ import LikeIcon from "./../assets/like.svg"
 import NopeIcon from "./../assets/nope.svg"
 import SettingIcon from "./../assets/setting.svg"
 import LogoIcon from "./../assets/logo.jpg"
-import LogoCropIcon from "./../assets/logocrop.png"
+import LogoCropIcon from "./../assets/logocrop.jpg"
 import LikeUserIcon from "./../assets/like_user.svg"
 
 //now no need to  react refrence becoz here we use jsx element and need a React reference at compile time to make an element using  React.creatElement

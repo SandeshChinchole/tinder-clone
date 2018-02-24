@@ -212,7 +212,7 @@ def nope():
             print (resp.text)
             return jsonify(message = "nope request failed")
         data = resp.json()
-        print(json.dumps(data))
+        #print(json.dumps(data))
         return jsonify(data)
 
 @app.route("/like-users")
@@ -246,7 +246,7 @@ def like_users():
             print (resp.text)
             return jsonify(message = "like-users request failed")
         data = resp.json()
-        print(json.dumps(data))
+        #print(json.dumps(data))
         return jsonify(data)
 
 @app.route("/update-user",methods=['POST'])
@@ -290,7 +290,6 @@ def update_user():
             print (resp.text)
             return jsonify(message = "update-user request failed")
         data = resp.json()
-        print(json.dumps(data))
         return jsonify(data)
 
 @app.route("/delete",methods=['POST'])
@@ -300,7 +299,6 @@ def delete():
         return jsonify(message = "delete request failed")
     # If user is logged in, show the user files they have uploaded
     else:
-        print ("here -1 ")
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
@@ -316,12 +314,10 @@ def delete():
         resp = requests.post("http://auth.hasura/v1/admin/delete-user", data=json.dumps(requestPayload),headers=headers)
 
         # resp.content contains the json response.
-        print ("here -2")
         if not(resp.status_code == 200):
             print (resp.text)
             return jsonify(message = "delete request failed")
         else:
-            print ("here -3")
             requestPayload = {
                     "type": "select",
                     "args": {
@@ -339,18 +335,13 @@ def delete():
 
             resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
             # resp.content contains the json response.
-            print ("here -4")
             if not(resp.status_code == 200):
                 print (resp.text)
                 return jsonify(message = "delete request failed")
             else:
-                print ("here -5")
                 data = resp.json()
-                print (data)
                 d = data[0]
-                print (d)
                 file_id = d['profile_file_id']
-                print (file_id)
                 url = 'http://filestore.hasura/v1/file/'+file_id
                 resp = requests.delete(url,headers=headers)
                 # resp.content contains the json response.
@@ -402,5 +393,4 @@ def delete():
                         return jsonify(message = "delete request failed")
                     else:
                         data = resp.json()
-                        print(json.dumps(data))
                         return jsonify(data)
