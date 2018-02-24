@@ -53,7 +53,7 @@ def get_articles():
 @app.route("/get-allusers-info")
 def getalluserinfo():
     if ('anonymous' in request.headers['x-hasura-allowed-roles']):
-        return jsonify(message = "getalluserinfo request failed")
+        return jsonify(message = "get-allusers-info request failed")
     # If user is logged in, show the user files they have uploaded
     else:
         # Query from the file-upload table to fetch files this user owns.
@@ -82,4 +82,4 @@ def getalluserinfo():
             return jsonify(message = "get-allusers-info request failed")
         data = resp.json()
         print(json.dumps(data))
-        return jsonify(data=data)
+        return data
