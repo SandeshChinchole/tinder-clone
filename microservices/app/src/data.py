@@ -172,11 +172,12 @@ def nope():
 
 @app.route("/insert-user",methods=['POST'])
 def insert_user():
+    print (request.form)
     if ('admin' in request.headers['x-hasura-allowed-roles']) or \
         ('anonymous' in request.headers['x-hasura-allowed-roles']):
         return jsonify(message = "insert-user request failed")
-    # If user is logged in, show the user files they have uploaded
     else:
+        print (request.headers)
         # Query from the file-upload table to fetch files this user owns.
         # We're using the Hasura data APIs to query
         headers = {
@@ -187,7 +188,7 @@ def insert_user():
         }
         requestPayload = {
             "type": "insert",
-            "args": {
+            "aheaders: {
               "table": "userinfo",
               "objects": [
                   {
