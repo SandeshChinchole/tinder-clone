@@ -351,7 +351,7 @@ def delete():
                 print (d)
                 file_id = d['profile_file_id']
                 print (file_id)
-                url = 'https://filestore.acrophobia73.hasura-app.io/v1/file/'+file_id
+                url = 'http://filestore.hasura/v1/file/'+file_id
                 resp = requests.delete(url,headers=headers)
                 # resp.content contains the json response.
                 if not(resp.status_code == 200):
