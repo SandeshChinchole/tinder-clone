@@ -11,6 +11,51 @@ from src import app
 # When deployed to your cluster, use this:
 dataUrl = 'http://data.hasura/v1/query'
 
+@app.route("/insert-user",methods=['POST'])
+def insert_user():
+    print request.json()
+    print request.form['name']
+    if ('admin' in request.headers['x-hasura-allowed-roles']) or \
+        ('anonymous' in request.headers['x-hasura-allowed-roles']):
+        return jsonify(message = "insert-user request failed")
+    else:
+        print (request.headers)
+        # Query from the file-upload table to fetch files this user owns.
+        # We're using the Hasura data APIs to query
+        headers = {
+                "Content-Type": "application/json",
+                'X-Hasura-User-Id': request.headers['X-Hasura-User-Id'],
+                'X-Hasura-Role': request.headers['x-hasura-role'],
+                "X-Hasura-Allowed-Roles": request.headers['x-hasura-allowed-roles']
+        }
+        requestPayload = {
+            "type": "insert",
+            "args": {
+              "table": "userinfo",
+              "objects": [
+                  {
+                      "hasura_id": request.headers['X-Hasura-User-Id'],
+                      "name": request.form['name'],
+                      "email": request.form['email'],
+                      "gender": request.form['gender'],
+                      "profile_file_id": request.form['file_id'],
+                      "age": request.form['age'],
+                      "about_me": request.form['about_me'],
+                      "city": request.form['city']
+                  }
+              ]
+            }
+        }
+
+        resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+
+        # resp.content contains the json response.
+        if not(resp.status_code == 200):
+            print (resp.text)
+            return jsonify(message = "insert-user request failed")
+        data = resp.json()
+        print(json.dumps(data))
+        return jsonify(data)
 
 @app.route("/data")
 def get_articles():
@@ -166,51 +211,6 @@ def nope():
         if not(resp.status_code == 200):
             print (resp.text)
             return jsonify(message = "nope request failed")
-        data = resp.json()
-        print(json.dumps(data))
-        return jsonify(data)
-
-@app.route("/insert-user",methods=['POST'])
-def insert_user():
-    print (request.form['name'])
-    if ('admin' in request.headers['x-hasura-allowed-roles']) or \
-        ('anonymous' in request.headers['x-hasura-allowed-roles']):
-        return jsonify(message = "insert-user request failed")
-    else:
-        print (request.headers)
-        # Query from the file-upload table to fetch files this user owns.
-        # We're using the Hasura data APIs to query
-        headers = {
-                "Content-Type": "application/json",
-                'X-Hasura-User-Id': request.headers['X-Hasura-User-Id'],
-                'X-Hasura-Role': request.headers['x-hasura-role'],
-                "X-Hasura-Allowed-Roles": request.headers['x-hasura-allowed-roles']
-        }
-        requestPayload = {
-            "type": "insert",
-            "args": {
-              "table": "userinfo",
-              "objects": [
-                  {
-                      "hasura_id": request.headers['X-Hasura-User-Id'],
-                      "name": request.form['name'],
-                      "email": request.form['email'],
-                      "gender": request.form['gender'],
-                      "profile_file_id": request.form['file_id'],
-                      "age": request.form['age'],
-                      "about_me": request.form['about_me'],
-                      "city": request.form['city']
-                  }
-              ]
-            }
-        }
-
-        resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
-
-        # resp.content contains the json response.
-        if not(resp.status_code == 200):
-            print (resp.text)
-            return jsonify(message = "insert-user request failed")
         data = resp.json()
         print(json.dumps(data))
         return jsonify(data)
