@@ -313,7 +313,7 @@ def delete():
             "hasura_id": request.headers['X-Hasura-User-Id']
         }
 
-        resp = requests.post(dataUrl, data=json.dumps(requestPayload),headers=headers)
+        resp = requests.post("http://auth.hasura/v1/admin/delete-user", data=json.dumps(requestPayload),headers=headers)
 
         # resp.content contains the json response.
         print ("here -2")
