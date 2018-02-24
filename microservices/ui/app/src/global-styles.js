@@ -11,6 +11,7 @@ injectGlobal`
     line-height: 20px;
     font-family: ProximaNova,sans-serif;
     line-height: 1.3125;
+    background: linear-gradient(262deg,#ff7854,#fd267d);
   }
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color:  #b3b3b3;
