@@ -84,7 +84,6 @@ const Button = styled.button`
  `;
  const Matches = styled.div`
   width: 100%;
-  height: 100%;
   background: #fff;
   display: grid;
   grid-template-columns: 1fr;
@@ -271,7 +270,7 @@ export class Drover extends React.Component{
       let email = userDetails.email;
        //   load All User And put it it on match like here
     return (
-      <div style={{display:"flex"}}>
+      <div style={{display:"flex",height:"100%"}}>
         <Pannel>
           <Navbar>
             <Tar onClick={this.handleEditProfile}>
