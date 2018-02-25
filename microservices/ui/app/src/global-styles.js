@@ -5,13 +5,17 @@ injectGlobal`
    margin: 0;
    padding: 0;
  }
+ html{
+  width: 100vw;
+  height: 100vh;
+ }
   body{
     color: #14171a;
     font-size: 14px;
     line-height: 20px;
     font-family: ProximaNova,sans-serif;
     line-height: 1.3125;
-    background: linear-gradient(262deg,#ff7854,#fd267d);
+
   }
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color:  #b3b3b3;
