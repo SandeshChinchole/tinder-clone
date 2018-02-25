@@ -15,7 +15,6 @@ injectGlobal`
     line-height: 20px;
     font-family: ProximaNova,sans-serif;
     line-height: 1.3125;
-
   }
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color:  #b3b3b3;
